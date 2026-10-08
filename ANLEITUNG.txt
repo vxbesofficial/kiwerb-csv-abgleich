@@ -14,6 +14,8 @@ in einem eigenen Ausgabe-Elternordner. Nur Python-Standardbibliothek; kein Paket
 Abo, Server, Netzwerk, KI-Dienst oder API-Schlüssel wird benötigt oder aufgerufen.
 Es wird keine Python-Installation vorgenommen. Zum Lesen der HTML-Datei genügt ein
 Browser; JavaScript und externe Ressourcen werden nicht verwendet.
+Breite Quelltabellen lassen sich auf schmalen Bildschirmen waagerecht scrollen,
+um die rechts liegenden Spalten zu lesen.
 
 GENAUER BEISPIELAUFRUF MIT VORHANDENEN SYNTHETISCHEN DATEIEN
 Im Terminal zuerst in den Ordner dieses Programms wechseln:
@@ -53,8 +55,9 @@ werden gemeldet; selbst angelegte Dateien werden nach Möglichkeit entfernt.
 EINGABE UND GRENZEN
 Genau zwei verschiedene reguläre Dateien, UTF-8 oder UTF-8 mit BOM. Symlink-Eingaben
 werden abgelehnt; dieselbe Datei bzw. ein Hardlink auf sie ist keine zweite Quelle.
-Je Quelle höchstens 1.000 Datenzeilen (CSV-Datensätze) und 10 MiB. Kopfzeile ist
-Pflicht, Spaltennamen müssen eindeutig und nicht leer sein. Beide Dateien benötigen
+Je Quelle höchstens 1.000 eingelesene CSV-Datensätze (ohne Kopfzeile) und 10 MiB.
+Ein Datensatz kann mehrere physische Zeilen belegen. Die Kopfzeile ist Pflicht,
+Spaltennamen müssen eindeutig und nicht leer sein. Beide Dateien benötigen
 den Schlüssel und alle gewählten Vergleichsfelder; zusätzliche Spalten sind erlaubt
 und bleiben vollständig als Rohwerte im Ergebnis. Unterschiedliche Reihenfolge der
 Spalten ist möglich. Namen und Werte werden niemals getrimmt oder normalisiert.
@@ -88,8 +91,8 @@ solchen Seite unterscheiden sich Rohfelder. Es wird keine Paarung vorgeschlagen.
 Mehrfachschlüssel haben Vorrang vor Nur A/Nur B und vor einem Feldvergleich.
 
 Alle Datensätze stehen mit Rohwerten und Herkunft in groups[].a_rows/b_rows des
-JSON-Berichts. Die Statuszahlen zählen Schlüsselgruppen, nicht Quellzeilen.
-Quellzeilenzahlen werden zusätzlich angegeben. SHA-256 bezeichnet die vollständigen
+JSON-Berichts. Die Statuszahlen zählen Schlüsselgruppen, nicht CSV-Datensätze.
+Die Datensatzanzahl je Quelle wird zusätzlich angegeben. SHA-256 bezeichnet die vollständigen
 unveränderten Quelldatei-Bytes. Der Bericht speichert nur deren Dateinamen, keine
 lokalen Verzeichnispfade; die Rohdaten selbst bleiben dennoch schutzbedürftig.
 Gleiche Dateien mit gleichen Dateinamen und denselben Optionen erzeugen identische

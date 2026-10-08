@@ -74,9 +74,12 @@ spreadsheets separately: raw values can contain formula-like text.
 ## Evidence and limits
 
 `python3 test_acceptance.py` reproduces 31 automated acceptance tests. The recorded
-run used synthetic data on macOS. These tests do not establish a visual browser
-review, Windows compatibility or independent customer operation. The full German
-manual is [ANLEITUNG.txt](ANLEITUNG.txt); messages and status labels remain German.
+run used synthetic data on macOS. A separate visual check on 8 October 2026
+covered representative synthetic reports in Chrome at 1440 × 900 and 390 × 844,
+including multiline fields, long text and horizontal scrolling of source tables.
+These checks do not establish Windows compatibility or independent customer
+operation. The full German manual is [ANLEITUNG.txt](ANLEITUNG.txt); messages and
+status labels remain German.
 
 No business correctness, savings, ongoing hosting, monitoring or unlimited support
 is promised. Before a customer handover, agree data rights, the actual environment,

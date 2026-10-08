@@ -128,7 +128,7 @@ def render(report):
              "color:#18212b;background:#fff}table{border-collapse:collapse;margin:1rem 0}"
              "td,th{border:1px solid #aaa;padding:.5rem;vertical-align:top;text-align:left}"
              "pre{white-space:pre-wrap;overflow-wrap:anywhere;margin:0;max-width:38rem}"
-             ".scroll{overflow-x:auto}section{border-top:2px solid #555;margin-top:2rem}"
+             ".scroll{overflow-x:auto}.source-rows table{min-width:40rem}section{border-top:2px solid #555;margin-top:2rem}"
              "code{overflow-wrap:anywhere}</style><h1>Lokaler CSV-Abgleich</h1>",
              "<p>Interne Lieferfähigkeitsprüfung. Keine Kundenreferenz, keine fachliche Freigabe. "
              "Alle Werte werden als unveränderter Text verglichen. Zahlen werden nicht berechnet.</p>",
@@ -162,7 +162,7 @@ def render(report):
                 parts.append("<p>Kein Datensatz in dieser Quelle.</p>")
                 continue
             headers = report["sources"][label]["headers"]
-            parts.append("<div class='scroll'><table><tr><th>Physische Zeile(n)</th>" +
+            parts.append("<div class='scroll source-rows'><table><tr><th>Physische Zeile(n)</th>" +
                          "".join("<th>{}</th>".format(esc(h)) for h in headers) + "</tr>")
             for row in group[member]:
                 parts.append("<tr><td>{}–{}</td>{}</tr>".format(row["line_start"], row["line_end"],

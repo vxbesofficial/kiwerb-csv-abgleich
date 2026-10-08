@@ -31,7 +31,7 @@ Zielordner liegt, ist der Lauf nicht abgeschlossen.
 
 Erwartete Schlüsselgruppen für dieses Beispiel:
   9 Treffer, 2 Feldabweichungen, 2 Nur A, 2 Nur B,
-  1 Dublette und 1 Mehrdeutig; insgesamt 17 Gruppen aus je 16 Quellzeilen.
+  1 Dublette und 1 Mehrdeutig; insgesamt 17 Gruppen aus je 16 CSV-Datensätzen.
 
 Tests reproduzieren
 -------------------
@@ -40,14 +40,17 @@ python3 test_acceptance.py
 
 31 automatisierte Blackbox-Tests prüfen unter anderem Rohwerterhalt, Mehrfach-
 schlüssel, Fehlermeldungen, Eingabegrenzen und das Nichtüberschreiben bestehender
-Dateien. Sie wurden lokal unter macOS ausgeführt. Die Tests untersuchen
-HTML-Ausgabetexte; eine gesonderte visuelle Browserprüfung, Kundenbedienprobe
-oder Windows-Abnahme ist damit nicht belegt.
+Dateien. Sie wurden lokal unter macOS ausgeführt und prüfen HTML-Ausgabetexte.
+Zusätzlich wurden am 8. Oktober 2026 repräsentative synthetische Berichte in
+Chrome bei 1440 × 900 und 390 × 844 Pixeln visuell geprüft, einschließlich
+mehrzeiliger Felder, langer Texte und horizontalem Scrollen der Quelltabellen.
+Eine Windows-Abnahme oder eigenständige Kundenbedienung ist damit nicht belegt.
 
 Vergleichsregeln und Grenzen
 ---------------------------
 - Genau zwei verschiedene reguläre UTF-8-CSV-Dateien, optional mit BOM.
-- Je Quelle höchstens 1.000 Datenzeilen und 10 MiB, 1 bis 10 Vergleichsfelder.
+- Je Quelle höchstens 1.000 CSV-Datensätze (ohne Kopfzeile) und 10 MiB,
+  1 bis 10 Vergleichsfelder. Ein Datensatz kann mehrere physische Zeilen belegen.
 - Standardtrennzeichen Semikolon; --delimiter kann es ausdrücklich ändern.
 - Exakter Textvergleich: 001 und 1, 0 und leer sowie 0.00 und 0.0 sind verschieden.
 - Keine Summenberechnung, Zahlen-/Datumsnormalisierung, Fuzzy-Zuordnung oder XLSX.
