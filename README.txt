@@ -1,6 +1,8 @@
 KIWERB CSV-Abgleich
 ==================
 
+English quickstart: QUICKSTART.en.md
+
 Ein kleines, lokal ausführbares Arbeitsbeispiel: Zwei CSV-Dateien über einen
 gewählten Schlüssel vergleichen und eine nachvollziehbare Prüfliste erzeugen.
 Abweichungen und Mehrfachschlüssel bleiben sichtbar; Originaldateien werden
