@@ -23,6 +23,14 @@ Im Repository-Ordner ausführen (lauf-01 darf noch nicht existieren):
 
 python3 reconcile.py --a examples/quelle-a-synthetisch.csv --b examples/quelle-b-synthetisch.csv --key Referenz --fields Betrag_EUR --out lauf-01
 
+Unter Windows PowerShell mit vorhandenem Python 3:
+
+python -X utf8 reconcile.py --a examples/quelle-a-synthetisch.csv --b examples/quelle-b-synthetisch.csv --key Referenz --fields Betrag_EUR --out lauf-01
+
+-X utf8 aktiviert UTF-8 für diesen Programmprozess. Nur den passenden
+Systemaufruf ausführen; der Ausgabeordner darf noch nicht existieren.
+Für einen normalen Abgleich sind die Entwicklertests nicht nötig.
+
 Bei erfolgreichem Abschluss enthält lauf-01 die Dateien report.json und
 result.html. Der JSON-Bericht bewahrt alle Rohwerte und Originalzeilenverweise.
 Die HTML-Datei zeigt sie als escaped Text ohne Skripte oder externe Ressourcen.
@@ -41,10 +49,15 @@ python3 test_acceptance.py
 31 automatisierte Blackbox-Tests prüfen unter anderem Rohwerterhalt, Mehrfach-
 schlüssel, Fehlermeldungen, Eingabegrenzen und das Nichtüberschreiben bestehender
 Dateien. Sie wurden lokal unter macOS ausgeführt und prüfen HTML-Ausgabetexte.
+Am 9. Oktober 2026 bestanden unter Windows mit Python 3.11.9 und prozesslokalem
+PYTHONUTF8=1 30 Tests; ein FIFO-Test wurde mangels Host-Unterstützung übersprungen.
+Ohne diese Einstellung scheiterte der Teststarter beim Decodieren von
+cp1252-Fehlermeldungen. Der Windows-Testaufruf steht am Ende der ANLEITUNG.txt.
 Zusätzlich wurden am 8. Oktober 2026 repräsentative synthetische Berichte in
 Chrome bei 1440 × 900 und 390 × 844 Pixeln visuell geprüft, einschließlich
 mehrzeiliger Felder, langer Texte und horizontalem Scrollen der Quelltabellen.
-Eine Windows-Abnahme oder eigenständige Kundenbedienung ist damit nicht belegt.
+Die Tests belegen ausgewählte lokale Fälle, keine allgemeine Windows-
+Kompatibilität, native Excel-Prüfung oder eigenständige Kundenbedienung.
 
 Vergleichsregeln und Grenzen
 ---------------------------

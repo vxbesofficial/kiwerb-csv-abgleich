@@ -17,6 +17,16 @@ From the repository directory, run:
 python3 reconcile.py --a examples/quelle-a-synthetisch.csv --b examples/quelle-b-synthetisch.csv --key Referenz --fields Betrag_EUR --out lauf-example-01
 ```
 
+For Windows PowerShell with an existing Python 3 installation, use:
+
+```powershell
+python -X utf8 reconcile.py --a examples/quelle-a-synthetisch.csv --b examples/quelle-b-synthetisch.csv --key Referenz --fields Betrag_EUR --out lauf-example-01
+```
+
+`-X utf8` enables UTF-8 mode for this process. Use only the command for your
+system; the output directory must not already exist. The developer tests
+below are not required to compare files.
+
 `lauf-example-01` must not already exist, and its parent directory must exist.
 Success means exit code **0**, the message `Abgleich abgeschlossen`, and both
 `report.json` and `result.html` in the new directory. Open `result.html` in a
@@ -73,13 +83,29 @@ spreadsheets separately: raw values can contain formula-like text.
 
 ## Evidence and limits
 
-`python3 test_acceptance.py` reproduces 31 automated acceptance tests. The recorded
-run used synthetic data on macOS. A separate visual check on 8 October 2026
+`python3 test_acceptance.py` reproduces 31 automated acceptance tests. The earlier
+run used synthetic data on macOS. On 9 October 2026, Windows with Python 3.11.9
+and process-local `PYTHONUTF8=1` passed 30 tests and skipped one FIFO test because
+the host lacks FIFO support. Without this setting, the test harness failed to
+decode cp1252 diagnostic output. For developer tests in PowerShell, temporarily
+pass UTF-8 mode to its Python subprocesses and restore the previous setting:
+
+```powershell
+$kiwerbPreviousUtf8 = [Environment]::GetEnvironmentVariable('PYTHONUTF8', 'Process')
+try {
+  $env:PYTHONUTF8 = '1'
+  python test_acceptance.py
+} finally {
+  [Environment]::SetEnvironmentVariable('PYTHONUTF8', $kiwerbPreviousUtf8, 'Process')
+}
+```
+
+A separate visual check on 8 October 2026
 covered representative synthetic reports in Chrome at 1440 × 900 and 390 × 844,
 including multiline fields, long text and horizontal scrolling of source tables.
-These checks do not establish Windows compatibility or independent customer
-operation. The full German manual is [ANLEITUNG.txt](ANLEITUNG.txt); messages and
-status labels remain German.
+These checks cover selected local cases, not general Windows compatibility,
+native Excel support or independent customer operation. The full German manual
+is [ANLEITUNG.txt](ANLEITUNG.txt); messages and status labels remain German.
 
 No business correctness, savings, ongoing hosting, monitoring or unlimited support
 is promised. Before a customer handover, agree data rights, the actual environment,

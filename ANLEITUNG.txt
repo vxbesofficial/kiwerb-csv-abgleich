@@ -1,5 +1,5 @@
 LOKALER CSV-ABGLEICH – ANLEITUNG ZUM ARBEITSBEISPIEL
-Version 1.0 · KIWERB · 8. Oktober 2026
+Version 1.0 · KIWERB · Windows-Hinweise ergänzt am 9. Oktober 2026
 
 ZWECK UND STATUS
 Dieses eng begrenzte Programm ist ein KI-gestützt entstandenes Arbeitsbeispiel
@@ -26,9 +26,15 @@ Dann ausführen; der Ordner lauf-synthetisch-01 darf noch nicht existieren:
 
   python3 reconcile.py --a examples/quelle-a-synthetisch.csv --b examples/quelle-b-synthetisch.csv --key Referenz --fields Betrag_EUR --out lauf-synthetisch-01
 
-Unter Windows kann der vorhandene Python-Starter anders heißen; seine Einrichtung
-und die tatsächliche Kundenumgebung sind nicht geprüft. Keine Excel-Prüfung wurde
-mit diesem Programm vorgenommen. Es liest oder erzeugt keine XLSX-Dateien.
+Unter Windows PowerShell mit vorhandenem Python 3 lautet der Aufruf:
+
+  python -X utf8 reconcile.py --a examples/quelle-a-synthetisch.csv --b examples/quelle-b-synthetisch.csv --key Referenz --fields Betrag_EUR --out lauf-synthetisch-01
+
+-X utf8 aktiviert UTF-8 für diesen Programmprozess. Nur den passenden
+Systemaufruf ausführen; der Ausgabeordner darf noch nicht existieren.
+Die tatsächliche Kundenumgebung und eigenständige Kundenbedienung sind noch
+nicht geprüft. Keine native Excel-Prüfung wurde vorgenommen; das Programm
+liest oder erzeugt keine XLSX-Dateien. Entwicklertests sind nicht erforderlich.
 
 EIGENE WIEDERHOLUNG
 1. Zwei freigegebene lokale CSV-Dateien bereitstellen; Originale separat erhalten.
@@ -135,3 +141,22 @@ Fehler anhand dieser Anleitung beheben und erneut laufen lassen können. Ergebni
 dieser Prüfung und eventuelle Fehlfälle sind getrennt zu dokumentieren. Umfang,
 Korrekturen und zusätzliche Betreuung müssen vereinbart werden; kein dauerhaftes
 Hosting, Monitoring, SaaS, unbegrenzter Support oder Geschäftserfolg ist zugesagt.
+
+OPTIONAL: ENTWICKLERTESTS UNTER WINDOWS
+Der Teststarter liest die Ausgaben seiner Python-Unterprozesse als UTF-8. Das
+-X-Flag am Teststarter allein wird nicht an diese Unterprozesse weitergegeben.
+In PowerShell den Modus vorübergehend vererben und danach zurücksetzen:
+
+$kiwerbPreviousUtf8 = [Environment]::GetEnvironmentVariable('PYTHONUTF8', 'Process')
+try {
+  $env:PYTHONUTF8 = '1'
+  python test_acceptance.py
+} finally {
+  [Environment]::SetEnvironmentVariable('PYTHONUTF8', $kiwerbPreviousUtf8, 'Process')
+}
+
+Unter Windows mit Python 3.11.9 bestanden so am 9. Oktober 2026 30 Tests;
+ein FIFO-Test wurde mangels Host-Unterstützung übersprungen. Der Standardlauf
+ohne UTF-8-Modus scheiterte an cp1252-Fehlermeldungen im Teststarter. Das ist
+keine allgemeine Windows- oder Kundenabnahme; der normale CSV-Aufruf benötigt
+keinen Testlauf.
